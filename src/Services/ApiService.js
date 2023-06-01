@@ -2,7 +2,6 @@ export default class ApiService {
     async makeRequest(baseUrl, endpoint, options, idToken) {
       const url = `${baseUrl}/${endpoint}`;
       const headers = {
-        'Content-Type': 'multipart/form-data',
         'Authorization' : `Bearer ${idToken}`
       };
       options.headers = headers;
@@ -14,17 +13,19 @@ export default class ApiService {
       return data;
     }
   
-    async Get(baseUrl, endpoint) {
+    async Get(baseUrl, endpoint, idToken) {
       const options = {
         method: 'GET',
+        'Content-Type': 'application/json',
       };
-      return this.makeRequest(baseUrl, endpoint, options);
+      return this.makeRequest(baseUrl, endpoint, options, idToken);
     }
   
     async Post(baseUrl, endpoint, body) {
       // var data = new FormData();
       const options = {
         method: 'POST',
+        'Content-Type': 'multipart/form-data',
         body: this.getFormData(body)
       };
       return this.makeRequest(baseUrl ,endpoint, options, body.idToken);
